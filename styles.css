@@ -1,7 +1,13 @@
 @font-face {
-    font-family: "Halloween";
-    src: url("Assets/Fonts/Halloween.woff") format("woff"),
-         url("Assets/Fonts/Halloween.woff2") format("woff2");
+    font-family: "Creepy";
+    src: url("Assets/Fonts/Creepy.woff") format("woff"),
+         url("Assets/Fonts/Creepy.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Lunacy";
+    src: url("Assets/Fonts/Lunacy.woff") format("woff"),
+         url("Assets/Fonts/Lunacy.woff2") format("woff2");
 }
 
 * {
@@ -11,29 +17,40 @@
 html {
   min-height: 100vh;
   cursor: url(Assets/Cursors/Ghost.cur), auto;
+  font-family: Lunacy;
 }
 
 body {
   margin: 0;
   background: radial-gradient(#9D5900, #3D2200);
-  perspective: 500px;
 }
 
 .page-title {
   color: #FF6D00;
-  font-family: Halloween, serif;
+  font-family: Creepy, serif;
   font-weight: normal;
   text-align: center;
   font-size: 6em;
 }
 
-.card-container {
-  width: 80%;
+.game-info-container {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+  color: #FFBB89;
+  font-size: 4em;
+}
+
+.game-container {
   margin: 50px auto;
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-gap: 10px;
   justify-content: center;
+  perspective: 500px;
 }
 
 .card {
@@ -66,14 +83,10 @@ body {
   transform: rotateY(0); 
 }
 
-/* Allows testing of flip animation */
-/* .card:hover .card-front {
-  transform: rotateY(0); 
+.card.matched .card-front .card-value {
+  transform: rotate(-30deg);
+  animation: dance 500ms ease-in-out alternate infinite 100ms;
 }
-
-.card:hover .card-back {
-  transform: rotateY(-180deg); 
-} */
 
 .card-back {
   background-color: black;
@@ -140,4 +153,55 @@ body {
   background-color: #FFBB89;
   border-color: #333;
   transform: rotateY(180deg);
+}
+
+.overlay-text {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  color: #FF6D00;
+  font-family: Creepy, serif;
+  transition: background-color 500ms, font-size 500ms;
+}
+
+.overlay-text.visible {
+  display: flex;
+  animation: overlay-grow 500ms forwards;
+}
+
+@keyframes dance {
+  from {
+    transform: rotate(-30deg)
+  }
+  to {
+    transform: rotate(30deg)
+  }
+}
+
+@keyframes overlay-grow {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 10em;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-container {
+    grid-template-columns: repeat(2, auto)
+  }
+
+  .game-info-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
