@@ -1,0 +1,143 @@
+@font-face {
+    font-family: "Halloween";
+    src: url("Assets/Fonts/Halloween.woff") format("woff"),
+         url("Assets/Fonts/Halloween.woff2") format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100vh;
+  cursor: url(Assets/Cursors/Ghost.cur), auto;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(#9D5900, #3D2200);
+  perspective: 500px;
+}
+
+.page-title {
+  color: #FF6D00;
+  font-family: Halloween, serif;
+  font-weight: normal;
+  text-align: center;
+  font-size: 6em;
+}
+
+.card-container {
+  width: 80%;
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  cursor: url("Assets/Cursors/GhostHover.cur"), auto;
+  height: 175px;
+  width: 125px;
+}
+
+.card-face {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  border-width: 1px;
+  border-style: solid;
+  overflow: hidden;
+  transition: transform 500ms ease-in-out;
+  backface-visibility: hidden;
+}
+
+.card.visible .card-back {
+  transform: rotateY(-180deg); 
+}
+
+.card.visible .card-front {
+  transform: rotateY(0); 
+}
+
+/* Allows testing of flip animation */
+/* .card:hover .card-front {
+  transform: rotateY(0); 
+}
+
+.card:hover .card-back {
+  transform: rotateY(-180deg); 
+} */
+
+.card-back {
+  background-color: black;
+  border-color: #FF6D00;
+  transform: rotateY(0); 
+}
+
+.cob-web {
+  position: absolute;
+  transition: width 100ms ease-in-out, height 100ms ease-in-out;
+  width: 47px;
+  height: 47px;
+}
+
+.card-face:hover .cob-web {
+  width: 52px;
+  height: 52px;
+}
+
+.cob-web-top-left {
+  transform: rotate(270deg);
+  top: 0;
+  left: 0;
+}
+
+.cob-web-top-right {
+  top: 0;
+  right: 0;
+}
+
+.cob-web-bottom-left {
+  transform: rotate(180deg);
+  bottom: 0;
+  left: 0;
+}
+
+.cob-web-bottom-right {
+  transform: rotate(90deg);
+  bottom: 0;
+  right: 0;
+}
+
+.spider {
+  align-self: flex-start;
+  transition: transform 100ms ease-in-out;
+  transform: translateY(-10px);
+}
+
+.card-back:hover .spider {
+  transform: translateY(0);
+}
+
+.card-value {
+  position: relative;
+  transition: transform 100ms ease-in-out;
+  transform: scale(.9);
+}
+
+.card-front:hover .card-value {
+  transform: scale(1);
+}
+
+.card-front {
+  background-color: #FFBB89;
+  border-color: #333;
+  transform: rotateY(180deg);
+}
