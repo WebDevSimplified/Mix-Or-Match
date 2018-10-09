@@ -84,8 +84,7 @@ body {
 }
 
 .card.matched .card-front .card-value {
-  transform: rotate(-30deg);
-  animation: dance 500ms ease-in-out alternate infinite 100ms;
+  animation: dance 1s linear infinite 500ms;
 }
 
 .card-back {
@@ -165,9 +164,14 @@ body {
   position: fixed;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   color: #FF6D00;
   font-family: Creepy, serif;
   transition: background-color 500ms, font-size 500ms;
+}
+
+.overlay-text-small {
+  font-size: .3em;
 }
 
 .overlay-text.visible {
@@ -176,10 +180,13 @@ body {
 }
 
 @keyframes dance {
-  from {
+  0%, 100% {
+    transform: rotate(0)
+  }
+  25% {
     transform: rotate(-30deg)
   }
-  to {
+  75% {
     transform: rotate(30deg)
   }
 }
