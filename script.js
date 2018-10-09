@@ -6,13 +6,27 @@ let cards = document.getElementsByClassName('card');
 let cardsArray = Array.from(cards);
 let matchedCards = [];
 let checking = false;
+let gameInterval;
+let cardClickCount = 0;
 
+function backgroundMusic() {
+    let music = new Audio('Assets/Audio/creepy.mp3');
+    music.play();
+    music.addEventListener('ended', () => {
+        music.currentTime = 0;
+        music.play();
+    });
+}
 function checkForVictory() {
-    if (cardsArray.length === matchedCards.length)
-        console.log('WIN!!!');
+    if (cardsArray.length === matchedCards.length) {
+        clearInterval(gameInterval);
+    }  
 }
 function clickCard(card) {
     if(checking || card === cardToMatch || matchedCards.includes(card)) return;
+    if(cardClickCount === 0) startGame();
+    cardClickCount++;
+    document.getElementById('flips').innerHTML = cardClickCount;
     card.classList.add('visible');
     if(cardToMatch) {
         checkForCardMatch(card);
@@ -22,13 +36,15 @@ function clickCard(card) {
 }
 function checkForCardMatch(card) {
     if(cardToMatch.dataset['cardType'] === card.dataset['cardType']) {
+        cardToMatch.classList.add('matched');
+        card.classList.add('matched');
         matchedCards.push(card);
         matchedCards.push(cardToMatch);
         cardToMatch = null;
         checkForVictory();
     } else {
         checking = true;
-        setTimeout(() => {
+         setTimeout(() => {
             cardToMatch.classList.remove('visible');
             card.classList.remove('visible');
             cardToMatch = null;
@@ -52,6 +68,10 @@ function init() {
             clickCard(cardsArray[i]);
         });
     }
+    countdown();
+}
+function startGame() {
+    backgroundMusic();
 }
 function setCardAttribute(card) {
     let cardFront = card.children[1];
@@ -74,4 +94,15 @@ function setCardAttribute(card) {
     else if(cardFrontImage.includes('Eye'))
         card.dataset['cardType'] = 'eye';
 }
+
+function countdown()  {
+    let timer = document.getElementById('time-remaining');
+    let timeRemaining = 100;
+    timer.innerText = timeRemaining;
+    gameInterval = setInterval(() => {
+        timeRemaining--;
+        timer.innerText = timeRemaining;
+    }, 1000);
+}
+
 init();
