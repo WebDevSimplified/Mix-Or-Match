@@ -41,7 +41,6 @@ class MixOrMatch {
         this.timer = document.getElementById('time-remaining')
         this.ticker = document.getElementById('flips');
         this.totalClicks = 0;
-        this.ticker.innerText = this.totalClicks; // Didn't want to put this in reset() so that the player can see their score after victory or gameover.
         this.cardToCheck = null;
         this.matchedCards = [];
         this.audioController = new AudioController();
@@ -50,10 +49,11 @@ class MixOrMatch {
     startGame() {
         this.audioController.startMusic();
         this.shuffleCards(this.cardsArray);
+        this.timer.innerText = this.timeRemaining;
+        this.ticker.innerText = this.totalClicks;
         this.countdown = this.startCountdown();
     }
     startCountdown() {
-        this.timer.innerText = this.timeRemaining;
         return setInterval(() => {
             this.timeRemaining--;
             this.timer.innerText = this.timeRemaining;
