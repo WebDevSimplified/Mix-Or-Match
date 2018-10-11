@@ -120,14 +120,12 @@ class MixOrMatch {
             this.busy = false;
         }, 1000);
     }
-    shuffleCards(cardsArray) {
+    shuffleCards(cardsArray) { // Fisher-Yates Shuffle Algorithm.
         for (let i = cardsArray.length - 1; i > 0; i--) {
-            const randIndex = Math.floor(Math.random() * (i + 1));
-            [cardsArray[i], cardsArray[randIndex]] = [cardsArray[randIndex], cardsArray[i]];
+            let randIndex = Math.floor(Math.random() * (i + 1));
+            cardsArray[randIndex].style.order = i;
+            cardsArray[i].style.order = randIndex;
         }
-        cardsArray = cardsArray.map((card, index) => {
-            card.style.order = index;
-        });
     }
     getCardType(card) {
         return card.getElementsByClassName('card-value')[0].src;
@@ -138,9 +136,9 @@ class MixOrMatch {
 }
 
 if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', ready)
+    document.addEventListener('DOMContentLoaded', ready);
 } else {
-    ready()
+    ready();
 }
 
 function ready() {
